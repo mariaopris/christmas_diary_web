@@ -1,7 +1,7 @@
 <template>
-  <div>
-      Viewww grouuup
-  </div>
+    <div>
+        Viewww grouuup
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -10,12 +10,8 @@ import {useUserStore} from "/stores/user-store";
 import axios from "axios";
 import router from "@/router";
 
-const members = ref([1,2,4]);
 const userStore = useUserStore();
 
-const viewGroup = () => {
-    router.push({ name: 'view-group' });
-}
 onMounted(() => {
     console.log('user iddd', userStore.userId)
 })
