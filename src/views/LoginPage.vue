@@ -34,6 +34,7 @@ import Swal from "sweetalert2";
 import {useCookies} from "vue3-cookies";
 import {useAuthStore} from "/stores/auth";
 import {useRouter} from "vue-router";
+import {useUserStore} from "../../stores/user-store";
 
 const email = ref('');
 const password = ref('');
@@ -41,6 +42,7 @@ const password = ref('');
 const auth = useAuthStore();
 const {cookies} = useCookies();
 const router = useRouter();
+const userStore = useUserStore();
 
 const login = async () =>{
   await axios.post("http://127.0.0.1:8000/api/login", {
@@ -51,6 +53,7 @@ const login = async () =>{
         axios.defaults.headers.common.Authorization = "Bearer " + result.data.token;
         cookies.set("Token", result.data.token, '5h');
         auth.setUser(result.data);
+        userStore.setUserId(result.data.id);
         await router.push('/');
       }).catch((e) => {
         Swal.fire({
