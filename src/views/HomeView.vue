@@ -12,9 +12,9 @@
       </div>
       <div class="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
         <template v-for="(group, group_index) in groups">
-          <div class="border border-1 p-5 rounded-lg flex-col items-center justify-center hover:bg-gray-100">
-            <p class="flex mb-1 items-center justify-center">{{group.name}}</p>
-<!--            <img class="h-24 w-fit rounded-md" src="/src/assets/generic-photo.jpg" alt="">-->
+          <div @click="viewGroup(group.id)" class="border border-1 p-5 rounded-lg flex-col items-center justify-center hover:bg-gray-100">
+            <p class="flex mb-1 items-center justify-center">{{ group.name }}</p>
+            <img class="h-24 w-fit rounded-md" src="/src/assets/generic-photo.jpg" alt="">
           </div>
         </template>
       </div>
@@ -27,22 +27,29 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
 import {useUserStore} from "/stores/user-store";
+import router from "@/router";
 import axios from "axios";
 
 const userStore = useUserStore();
 const groups = ref([]);
+const getGroups = async () => {
+    axios.get('http://127.0.0.1:8000/api/getGroups')
+        .then(response => {
+          console.log(response.data.data);
+          response.data.data.forEach((group) => {
+              groups.value.push(group);
+          })
+        })
+        .catch(error => {
 
-const getGroups = async() => {
-  await axios.get('http://127.0.0.1:8000/api/getGroups')
-      .then((response) => {
-        if(response.data.status === 'success'){
-          groups.value = response.data.data;
-        }
-      })
+        });
 }
 
-onMounted(async() => {
-  console.log('user iddd', userStore.userId);
-  await getGroups();
+const viewGroup = (group_id: number) => {
+    router.push({ name: 'view-group', params: { group_id: group_id } });
+}
+onMounted(() => {
+    getGroups();
+  console.log('user iddd', userStore.userId)
 })
 </script>

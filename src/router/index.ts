@@ -7,7 +7,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
     },
     {
       path: '/add-group',
@@ -23,6 +23,11 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: () => import('../views/LoginPage.vue')
+    },
+    {
+      path: '/group/:group_id?',
+      name: 'view-group',
+      component: () => import('../views/GroupPage.vue')
     }
   ]
 })
