@@ -26,7 +26,7 @@
       <img v-if="selectedFile" :src="previewImage" alt="Preview Image" class="mt-10 h-100">
 
       <div class="mt-6 flex items-center justify-center gap-x-6 mb-10">
-        <router-link :to="'/view_group/'+form.group_id" type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</router-link>
+        <router-link :to="'/group/'+form.group_id" type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</router-link>
         <button @click="savePost()" type="button" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
       </div>
 
@@ -85,7 +85,7 @@ const savePost = async () => {
               icon: 'error',
             })
           }
-          await router.push('/view_group/'+form.value.group_id);
+          await router.push('/group/'+form.value.group_id);
         }).catch((e) => {
           Swal.fire({
             icon: 'error',
