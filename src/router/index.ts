@@ -28,6 +28,11 @@ const router = createRouter({
       path: '/view_group/:group_id?',
       name: 'view-group',
       component: () => import('../views/GroupPage.vue')
+    },
+    {
+      path: '/add_post/:group_id?',
+      name: 'add_post',
+      component: () => import('../views/AddPost.vue')
     }
   ]
 })
